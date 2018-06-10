@@ -1,0 +1,48 @@
+Testing listAllChallenges API-----------
+Request: http://localhost:8080/SimpleChallengeService/challenge/
+Response:
+Challenge : id=1, Name=Walking, Level=1, Calories=100
+Challenge : id=2, Name=Jogging, Level=2, Calories=230
+Challenge : id=3, Name=Sprinting, Level=2, Calories=250
+Challenge : id=4, Name=Running, Level=3, Calories=400
+
+Testing getChallenge API----------
+Request: http://localhost:8080/SimpleChallengeService/challenge/1
+Response:
+Challenge [id=1, name=Walking, level=1, calories=100]
+
+Testing getChallenge By Name API: Walking
+Request: http://localhost:8080/SimpleChallengeService/name/Walking
+Response:
+Challenge [id=1, name=Walking, level=1, calories=100]
+
+Testing getChallenge By Name API: Sprinting
+Request: http://localhost:8080/SimpleChallengeService/name/Sprinting
+Response:
+Challenge [id=3, name=Sprinting, level=2, calories=250]
+
+Testing getChallenge By Name API: Jogging
+Request: http://localhost:8080/SimpleChallengeService/name/Jogging
+Response:
+Challenge [id=2, name=Jogging, level=2, calories=230]
+
+Testing getChallenge By Name API: Running
+Request: http://localhost:8080/SimpleChallengeService/name/Running
+Response:
+Challenge [id=4, name=Running, level=3, calories=400]
+
+Testing getChallenge By Level API: Easy
+http://localhost:8080/SimpleChallengeService/level/Easy
+Response:
+Challenge : id=1, Name=Walking, Level=1, Calories=100
+
+Testing getChallenge By Level API: Intermediate
+Request: http://localhost:8080/SimpleChallengeService/level/Intermediate
+Response:
+Challenge : id=2, Name=Jogging, Level=2, Calories=230
+Challenge : id=3, Name=Sprinting, Level=2, Calories=250
+
+Testing getChallenge By Level API: Difficult
+Request: http://localhost:8080/SimpleChallengeService/level/Difficult
+Response:
+Challenge : id=4, Name=Running, Level=3, Calories=400

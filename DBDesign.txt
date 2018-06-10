@@ -1,0 +1,109 @@
+--Table design in SQL DDL format
+
+CREATE TABLE users (
+
+    user_no     INT             NOT NULL,  
+
+    user_name   VARCHAR(20)     NOT NULL,
+
+    birth_date  DATE            NOT NULL,
+
+    first_name  VARCHAR(14)     NOT NULL,
+
+    last_name   VARCHAR(16)     NOT NULL,
+
+    gender      VARCHAR(1) CHECK( GENDER IN ('M','F') )  NOT NULL,  -- Enumeration of either 'M' or 'F' 
+
+    PRIMARY KEY (user_no)                   -- Index built automatically on primary-key column
+
+                                           -- INDEX (first_name)
+
+                                           -- INDEX (last_name)
+
+);
+
+ 
+
+CREATE TABLE CHALLENGE_LEVEL (
+
+  level_id      SMALLINT    NOT NULL,
+
+  level_name      VARCHAR(50) NOT NULL,
+
+  PRIMARY KEY (level_id)
+
+)
+
+ 
+
+CREATE TABLE challenges (
+
+    challenge_no CHAR(4)             NOT NULL,  
+
+    challenge_name   VARCHAR(40)     NOT NULL,
+
+    level_id INT NOT NULL,
+
+    calories INT,
+
+    PRIMARY KEY (challenge_no),
+
+    CONSTRAINT fk_challenge_level FOREIGN KEY (level_id) REFERENCES CHALLENGE_LEVEL (level_id)
+
+);
+
+ 
+
+CREATE TABLE challenge_user (
+
+    user_no      INT         NOT NULL,
+
+    challenge_no CHAR(4)     NOT NULL,
+
+    from_date    TIMESTAMP   NOT NULL,
+
+    to_date      TIMESTAMP   NOT NULL,
+
+    FOREIGN KEY (user_no) REFERENCES users (user_no),
+
+           -- Cascade DELETE from parent table 'users' to this child table
+
+           -- If an user_no is deleted from parent 'users', all records
+
+           --  involving this user_no in this child table are also deleted
+
+           -- ON UPDATE CASCADE??
+
+    FOREIGN KEY (challenge_no) REFERENCES challenges (challenge_no),
+
+           -- ON UPDATE CASCADE??
+
+    PRIMARY KEY (user_no, challenge_no, from_date)
+
+);
+
+-- Sample data population in SQL DML format.
+
+INSERT INTO CHALLENGE_LEVEL(LEVEL_ID, LEVEL_NAME) VALUES (1, 'Easy')
+
+INSERT INTO CHALLENGE_LEVEL(LEVEL_ID, LEVEL_NAME) VALUES (2, 'Intermediate')
+
+INSERT INTO CHALLENGE_LEVEL(LEVEL_ID, LEVEL_NAME) VALUES (3, 'Difficult')
+
+ 
+
+INSERT INTO USERS(USER_NO,USER_NAME,BIRTH_DATE,FIRST_NAME,LAST_NAME,GENDER) VALUES (001, 'RonFab', '01-JAN-87', 'Ronan', 'Fab', 'M')
+
+ 
+
+INSERT INTO CHALLENGES(CHALLENGE_NO, CHALLENGE_NAME, LEVEL_ID, CALORIES) VALUES (100, 'WALKING', 1, 100)
+
+INSERT INTO CHALLENGES(CHALLENGE_NO, CHALLENGE_NAME, LEVEL_ID, CALORIES) VALUES (200, 'JOGGING', 1, 230)
+
+INSERT INTO CHALLENGES(CHALLENGE_NO, CHALLENGE_NAME, LEVEL_ID, CALORIES) VALUES (300, 'RUNNING', 1, 400)
+
+ 
+
+INSERT INTO CHALLENGE_USER(USER_NO, CHALLENGE_USER.CHALLENGE_NO, FROM_DATE, TO_DATE) VALUES (001, 100, '07-JUN-2018 10:10:12.12312', '07-JUN-2018 10:16:12.12312')
+
+INSERT INTO CHALLENGE_USER(USER_NO, CHALLENGE_USER.CHALLENGE_NO, FROM_DATE, TO_DATE) VALUES (001, 200, '07-JUN-2018 10:16:12.12312', '07-JUN-2018 10:33:12.12312')
